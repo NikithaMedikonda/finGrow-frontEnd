@@ -8,6 +8,7 @@ import { TbReport } from "react-icons/tb";
 const Icon = ({ type }: { type: string }) => {
     let heading;
     let IconComponent;
+    let id;
     
     if (type === "addTransaction") {
         heading = "Add Transaction";
@@ -28,7 +29,7 @@ const Icon = ({ type }: { type: string }) => {
     }
     return (
         <div className={"tagIconContainer"}>
-            <div data-testid="icon-container" className={"iconContainer"}>
+            <div data-testid={type} className={"iconContainer"}>
                 <IconComponent size={20} color="blue" />
             </div>
             <div className={"tagContainer"}>
