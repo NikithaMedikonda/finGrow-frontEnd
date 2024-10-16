@@ -4,7 +4,7 @@ import { UserContext } from '../context/context';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('Dashboard Component', () => {
-    const mockUser = { username: 'testUser' };
+    const mockUser = { username: 'Nikitha' };
 
     const renderComponent = (user: any) => {
         render(
