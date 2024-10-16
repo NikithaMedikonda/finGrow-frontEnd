@@ -2,7 +2,6 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import LoginPage from '../Pages/login';
 import { UserContext } from '../context/context';
 import { MemoryRouter, BrowserRouter as Router } from 'react-router-dom';
-import { API } from "../api";
 
 global.fetch = jest.fn();
 
