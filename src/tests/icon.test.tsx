@@ -21,7 +21,7 @@ describe('Icon Component', () => {
 
       expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(heading);
 
-      const iconElement = screen.getByTestId('icon-container');
+      const iconElement = screen.getByTestId(type);
       expect(iconElement.querySelector('svg')).toBeInTheDocument();
     });
   });
