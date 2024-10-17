@@ -24,7 +24,6 @@ const RegistrationPage: React.FC = () => {
                     balance,
                 }),
             });
-            console.log(response)
             if (response.ok) {
                 alert("User created succesfully");
                 navigate('/dashboard');
