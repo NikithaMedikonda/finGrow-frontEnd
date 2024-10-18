@@ -1,20 +1,15 @@
+import React from 'react';
 import { render, screen, waitFor } from "@testing-library/react";
 import { UserContext } from "../context/context";
 import Transactions from "../components/transactions";
 import fetchMock from "jest-fetch-mock";
 
 fetchMock.enableMocks();
-
+    
 describe("Transactions Component", () => {
-    type User = {
-        username: string;
-        password: string;
-        totalIncome: number;
-        balance: number;
-    };
 
     const mockUserContext = {
-        user: { username: "testuser", password: "password", totalIncome: 10000, balance: 8000 } as User,
+        user: { username: "testuser", password: "password", totalIncome: 10000, balance: 8000 },
         setUser: jest.fn(),
         transactions: [],
         setTransactions: jest.fn(),
