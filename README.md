@@ -1,46 +1,85 @@
-# Getting Started with Create React App
+# FinGrow
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+FinGrow is a personal finance management application designed to improve financial well-being. It helps users manage various sources of income, regular expenses, and specific savings goals—like building an emergency fund or saving for vacations—through efficient tracking and budgeting systems.
 
-## Available Scripts
+This project follows Test-Driven Development (TDD) principles to ensure reliable, high-quality code.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+**Login and Registration Pages:** Allow users to register and log in with a username and password.
+**Home Page:**
+- **Forms:**
+  - Add a transaction.
+  - Set a budget.
+  - Define a savings goal.
+- **Recent Transactions:** Display the five most recent transactions.
+- **Generate Reports:**
+  - Select report type from a dropdown (e.g., monthly or yearly).
+  - Enter date range with From and To fields.
+  - Submit the form to view the report for the selected period.
+- **Alerts:** Display alerts when:
+  - Spending exceeds the budget.
+  - Savings goals reach 90%.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## TechStack
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Typescript**: For type-safe development
+- **Jest**: For unit testing
+- **React:** Builds an interactive and dynamic user interface.
+- **CSS for styling**: For styling and layout.
 
-### `npm test`
+## Project Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clone the respositories:
+Clone both the frontend and backend repositories:
 
-### `npm run build`
+# Frontend Repository
+git clone https://github.com/NikithaMedikonda/finGrow-frontEnd/tree/finGrow/frontend-part1
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Backend Repository
+git clone https://github.com/NikithaMedikonda/finGrow/tree/fingrow/part-2
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Backend setup
 
-### `npm run eject`
+1. Navigate to the Backend directory:
+    ```sh
+    cd /finGrow/tree/fingrow/part-2/
+    ```
+2. Install the dependencies:
+    ```
+    npm install
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. Run backend with command:
+    ```sh
+    npm run dev
+    ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# frontend setup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Navigate to the Backend directory:
+    ```sh
+    cd /finGrow-frontEnd/tree/finGrow/frontend-part1/
+    ```
+2. Install the dependencies:
+    ```
+    npm install
+    ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Start the frontend application:
+    ```
+    npm start
+    ```
 
-## Learn More
+4. Open your browser and navigate to:
+    ```
+     http://localhost:3000/
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Testing the App
+Run the tests using Jest:
+
+    npm test
+
