@@ -15,12 +15,12 @@ const Report = () => {
     const [transactions, setTransactions] = useState<[] | string>("");
 
     if (!userContext) {
-        return <></>;
+        return <>No User Context</>;
     }
     const { user } = userContext;
 
     if (!user) {
-        return <></>;
+        return <>No User Context</>;
     }
 
     const handleGenerate = async () => {
@@ -59,7 +59,6 @@ const Report = () => {
             }
 
             if (response.ok) {
-                console.log("response ok")
                 const result = await response.json();
                 setReportData(result);
 
@@ -92,7 +91,7 @@ const Report = () => {
                 }
             }
         } catch (e) {
-            console.log("error fetching report");
+            alert("error fetching report")
         }
     };
 
@@ -102,6 +101,7 @@ const Report = () => {
             <div className={"reportcontainer"}>
                 <div className={"reportContainerone"}>
                     <select
+                        data-testid="reportType"
                         id="reportType"
                         value={reportType}
                         onChange={(e) => setReportType(e.target.value)}
@@ -116,6 +116,7 @@ const Report = () => {
                             <input
                                 className="reportinput"
                                 type="date"
+                                data-testid="startDate"
                                 id="startDate"
                                 value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
@@ -123,6 +124,7 @@ const Report = () => {
                             <input
                                 className="reportinput"
                                 type="date"
+                                data-testid="endDate"
                                 id="endDate"
                                 value={endDate}
                                 onChange={(e) => setEndDate(e.target.value)}
