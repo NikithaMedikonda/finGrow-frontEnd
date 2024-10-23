@@ -122,4 +122,22 @@ describe('TransactionForm Component', () => {
 
         expect(screen.getByText(/context not present/i)).toBeInTheDocument();
     });
+
+    test('shows an alert on error during transaction addition', async () => {
+        renderComponent(mockUser);
+
+        fireEvent.change(screen.getByPlaceholderText(/transaction name/i), { target: { value: 'Icecream' } });
+        fireEvent.change(screen.getByPlaceholderText(/amount/i), { target: { value: '200' } });
+        fireEvent.change(screen.getByPlaceholderText(/type/i), { target: { value: 'debit' } });
+        fireEvent.change(screen.getByPlaceholderText(/category/i), { target: { value: 'Groceries' } });
+        fireEvent.change(screen.getByPlaceholderText(/date/i), { target: { value: '2024-10-17' } });
+
+        global.fetch = jest.fn().mockRejectedValueOnce(new Error('Network Error'));
+
+        fireEvent.click(screen.getByRole('button', { name: /add/i }));
+
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith('Error while adding transaction');
+        });
+    });
 });
