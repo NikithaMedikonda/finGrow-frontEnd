@@ -51,7 +51,6 @@ const BudgetForm = ({ type }: { type: string }) => {
                 const result = await response.json();
                 alert(`Error occured`)
             }
-
         } catch (e) {
             alert("An unexpected error occurred while creating.");
         }
