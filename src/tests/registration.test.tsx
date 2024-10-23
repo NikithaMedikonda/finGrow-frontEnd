@@ -52,15 +52,9 @@ describe('RegistrationPage Component', () => {
     });
 
     test('updates input values on change', () => {
-        fireEvent.change(screen.getByPlaceholderText(/Username/i), {
-            target: { value: 'testUser' },
-        });
-        fireEvent.change(screen.getByPlaceholderText(/Password/i), {
-            target: { value: 'testPassword' },
-        });
-        fireEvent.change(screen.getByPlaceholderText(/Enter Income/i), {
-            target: { value: '10000' },
-        });
+        fireEvent.change(screen.getByPlaceholderText(/Username/i), { target: { value: 'testUser' }});
+        fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: 'testPassword' }});
+        fireEvent.change(screen.getByPlaceholderText(/Enter Income/i), { target: { value: '10000' }});
 
         expect(screen.getByPlaceholderText(/Username/i)).toHaveValue('testUser');
         expect(screen.getByPlaceholderText(/Password/i)).toHaveValue('testPassword');
@@ -68,26 +62,45 @@ describe('RegistrationPage Component', () => {
     });
 
     test('shows success alert and navigates to dashboard on successful registration', async () => {
-        (fetch as jest.Mock).mockResolvedValueOnce({
-            ok: true,
-            json: async () => ({ username: 'testUser' }),
-        });
+        (fetch as jest.Mock).mockResolvedValueOnce({ ok: true });
 
-        fireEvent.change(screen.getByPlaceholderText(/Username/i), {
-            target: { value: 'testUser' },
-        });
-        fireEvent.change(screen.getByPlaceholderText(/Password/i), {
-            target: { value: 'testPassword' },
-        });
-        fireEvent.change(screen.getByPlaceholderText(/Enter Income/i), {
-            target: { value: '10000' },
-        });
+        fireEvent.change(screen.getByPlaceholderText(/Username/i), { target: { value: 'testUser' } });
+        fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: 'testPassword' } });
+        fireEvent.change(screen.getByPlaceholderText(/Enter Income/i), { target: { value: '10000' } });
 
         fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
         await waitFor(() => {
-            expect(window.alert).toHaveBeenCalledWith('User created succesfully');
+            expect(window.alert).toHaveBeenCalledWith('User created successfully');
             expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+        });
+    });
+
+    test('shows error alert when registration fails', async () => {
+        (fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
+
+        fireEvent.change(screen.getByPlaceholderText(/Username/i), { target: { value: 'testUser' } });
+        fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: 'testPassword' } });
+        fireEvent.change(screen.getByPlaceholderText(/Enter Income/i), { target: { value: '10000' } });
+
+        fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith('Error creating user');
+        });
+    });
+
+    test('shows error alert on fetch/network error', async () => {
+        (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network Error"));
+
+        fireEvent.change(screen.getByPlaceholderText(/Username/i), { target: { value: 'testUser' } });
+        fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: 'testPassword' } });
+        fireEvent.change(screen.getByPlaceholderText(/Enter Income/i), { target: { value: '10000' } });
+
+        fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith(expect.stringContaining('Error creating User:'));
         });
     });
 
