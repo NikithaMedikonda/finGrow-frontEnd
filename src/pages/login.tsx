@@ -14,11 +14,8 @@ const LoginPage: React.FC = () => {
         return <>Context not present</>;
     }
 
-    const { user, setUser } = userContext;
-    if (!user) {
-       
-    }
-
+    const { setUser } = userContext;
+    
     const handleLogin = async () => {
         try {
             const response = await fetch(`${API}/users/${username}`, {
@@ -33,9 +30,8 @@ const LoginPage: React.FC = () => {
                 setUser(result)
                 alert('Login successful!');
                 navigate("/dashboard");
-            } else if (response.status === 500) {
-                const result = await response.json();
-                alert(`Error logging in: ${result}`);
+            } else {
+                alert(`Error occured while logging in`);
             }
         } catch (e) {
             alert("Error occured while fetching user details");
