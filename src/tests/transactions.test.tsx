@@ -57,11 +57,8 @@ describe("Transactions Component", () => {
         await waitFor(() => {
             expect(fetchMock).toHaveBeenCalledTimes(1);
             expect(screen.getByText(/Medicine \| Emergency fund/i)).toBeInTheDocument();
-            
-
             expect(screen.getByText(/1 Oct 2024/i)).toBeInTheDocument();
-            expect(screen.getByText(/Rs.10000/i)).toBeInTheDocument();
-            
+            expect(screen.getByText(/Rs.10000/i)).toBeInTheDocument(); 
             expect(screen.getByText(/Food \| Groceries/i)).toBeInTheDocument();
             expect(screen.getByText(/5 Oct 2024/i)).toBeInTheDocument();
             expect(screen.getByText(/-Rs.2000/i)).toBeInTheDocument();
@@ -76,13 +73,30 @@ describe("Transactions Component", () => {
 
         await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
         expect(screen.getByText("No recent Transactions Found")).toBeInTheDocument();
+    }); 
+
+    test("sets transactions to an empty array when fetch response is not ok", async () => {
+        fetchMock.mockResponseOnce("", { status: 404 });
+
+        renderComponent(mockUserContext);
+
+        await waitFor(() => {
+            expect(fetchMock).toHaveBeenCalledTimes(1);
+            expect(screen.getByText("No recent Transactions Found")).toBeInTheDocument();
+        });
     });
 
-    test("renders 'No User' message when there is no user in context", async () => {
-        const mockContextWithoutUser = { user: null, setAdd: jest.fn() };
+    test("alerts 'Failed to fetch transactions' on fetch error", async () => {
+        const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+        fetchMock.mockReject(new Error("Network error"));
+        renderComponent(mockUserContext);
 
-        renderComponent(mockContextWithoutUser);
+        await waitFor(() => {
+            expect(fetchMock).toHaveBeenCalledTimes(1);
+            expect(alertMock).toHaveBeenCalledWith("Failed to fetch transactions");
+            expect(screen.getByText("No recent Transactions Found")).toBeInTheDocument();
+        });
 
-        expect(screen.getByText("No recent Transactions Found")).toBeInTheDocument();
+        alertMock.mockRestore(); 
     });
-});
+})
