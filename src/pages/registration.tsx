@@ -25,21 +25,19 @@ const RegistrationPage: React.FC = () => {
                 }),
             });
             if (response.ok) {
-                alert("User created succesfully");
+                alert("User created successfully");
                 navigate('/dashboard');
             } else {
                 alert("Error creating user");
             }
         } catch (e: any) {
-            return `Error creaating User: ${e.message}`;
+            alert(`Error creating User: ${e.message}`);
         }
     }
 
     return (
         <div className="container">
-            <h1 className="heading">
-                Welcome to FinGrow
-            </h1>
+            <h1 className="heading">Welcome to FinGrow</h1>
             <h2 className="register-heading">Register</h2>
             <div className="form">
 
