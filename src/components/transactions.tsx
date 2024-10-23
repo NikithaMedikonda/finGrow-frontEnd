@@ -11,32 +11,26 @@ const Transactions = () => {
 
     useEffect(() => {
         const fetchTransactions = async () => {
-            if (!userContext) {
-                return;
-            }
-            const { user, setAdd } = userContext;
-            if (!user) {
-                setTransactions("No User");
+            if (!userContext || !userContext.user) {
                 return;
             }
 
             try {
+                const { user, setAdd } = userContext;
                 const response = await fetch(`${API}/getTransactions/${user.username}`);
                 if (response.ok) {
                     const data = await response.json();
                     setTransactions(data);
                     setAdd(false);
                 } else {
-                    console.log("Error fetching transactions");
                     setTransactions([]);
                 }
             } catch (e) {
-                console.log(e);
-                setTransactions([]);
+               alert("Failed to fetch transactions");
             }
         };
         fetchTransactions();
-    }, [userContext?.user?.username, userContext?.add]);
+    }, [userContext]);
 
     return (
         <div className="transactionsContainer">
