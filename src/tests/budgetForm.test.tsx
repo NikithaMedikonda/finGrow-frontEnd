@@ -127,6 +127,27 @@ describe("Checking Budget Form Component", () => {
             expect(window.alert).toHaveBeenCalledWith('Error occured');
         });
     })
+
+    test("Should handle unexpected error", async () => {
+        const user = { username: "Nikitha", password: "1234", totalIncome: 20000, balance: 10000 };
+        renderComponent("budget", user);
+    
+        (fetch as jest.Mock).mockRejectedValue(new Error("Network Error"));
+    
+        fireEvent.change(screen.getByTestId("category-input")!, {
+            target: { value: "Entertainment" },
+        });
+        fireEvent.change(screen.getByTestId("amount-input")!, {
+            target: { value: "4000" },
+        });
+    
+        fireEvent.click(screen.getByRole("button", { name: /Create/i }));
+    
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith('An unexpected error occurred while creating.');
+        });
+    });
+    
 })
 
 describe("Checking Savings Form Component", () => {
@@ -267,4 +288,25 @@ describe("Checking Savings Form Component", () => {
             expect(window.alert).toHaveBeenCalledWith('Error occured');
         });
     })
+
+    test("Should handle unexpected error", async () => {
+        const user = { username: "Nikitha", password: "1234", totalIncome: 20000, balance: 10000 };
+        renderComponent("savings", user);
+    
+        (fetch as jest.Mock).mockRejectedValue(new Error("Network Error"));
+    
+        fireEvent.change(screen.getByTestId("category-input")!, {
+            target: { value: "Entertainment" },
+        });
+        fireEvent.change(screen.getByTestId("amount-input")!, {
+            target: { value: "4000" },
+        });
+    
+        fireEvent.click(screen.getByRole("button", { name: /Create/i }));
+    
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith('An unexpected error occurred while creating.');
+        });
+    });
+    
 });    
