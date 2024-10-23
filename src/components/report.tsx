@@ -14,49 +14,32 @@ const Report = () => {
     const [reportData, setReportData] = useState<any>(null);
     const [transactions, setTransactions] = useState<[] | string>("");
 
-    if (!userContext) {
+    if (!userContext?.user) {
         return <>No User Context</>;
     }
     const { user } = userContext;
-
-    if (!user) {
-        return <>No User Context</>;
-    }
-
+    
     const handleGenerate = async () => {
         if (!reportType) {
             alert("Please select a report type.");
             return;
         }
 
-        let tag;
-        switch (reportType) {
-            case "Income & Expenses":
-                tag = "income-expenses";
-                break;
-            case "Budget Summary":
-                tag = "budget-summary";
-                break;
-            case "Savings Progress":
-                tag = "savings-progress";
-                break;
-            default:
-                return;
-        }
+        const tagMap: { [key: string]: string } = {
+            "Income & Expenses": "income-expenses",
+            "Budget Summary": "budget-summary",
+            "Savings Progress": "savings-progress",
+        };
+
+        const tag = tagMap[reportType];
+        if (!tag) return;
 
         try {
-            let response;
-            if (tag === "income-expenses") {
-                response = await fetch(`${API}/report/${user.username}/${tag}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ startDate, endDate }),
-                });
-            } else {
-                response = await fetch(`${API}/report/${user.username}/${tag}`, {
-                    method: "POST"
-                });
-            }
+            const response = await fetch(`${API}/report/${user.username}/${tag}`, {
+                method: tag === "income-expenses" ? "POST" : "POST",
+                headers: { "Content-Type": "application/json" },
+                body: tag === "income-expenses" ? JSON.stringify({ startDate, endDate }) : undefined,
+            });
 
             if (response.ok) {
                 const result = await response.json();
@@ -65,33 +48,35 @@ const Report = () => {
                 if (reportType === "Income & Expenses") {
                     const transactionsResponse = await fetch(`${API}/getAllTransactions/${user.username}`);
                     if (transactionsResponse.ok) {
-                        const transactionsData = await transactionsResponse.json();
-                        setTransactions(transactionsData);
+                        setTransactions(await transactionsResponse.json());
                     }
                 }
-
-                if (reportType === "Budget Summary") {
-                    const overBudget = result.filter((report: any) =>
-                        parseFloat(report.usagePercentage.replace('%', '')) > 90
-                    ).map((report: any) => report.category);
-                    if (overBudget.length > 0) {
-                        alert(`The categories: ${overBudget.join(", ")} have exceeded 90% of the budget limit.`);
-                    }
-                }
-
-                if (reportType === "Savings Progress") {
-                    const highSavings = result.filter((report: any) =>
-                        parseFloat(report.progressPercentage.replace('%', '')) > 90
-                    ).map((report: any) => report.savingGoal);
-                    if (highSavings.length > 0) {
-                        alert(`Congratulations! The savings goals: ${highSavings.join(", ")} have exceeded 90%.`);
-                    }
-                } else {
-                    alert("Error generating report. Please try again.");
-                }
+                handleAlerts(reportType, result);
+            } else {
+                alert("Error generating report. Please try again.");
             }
         } catch (e) {
             alert("error fetching report")
+        }
+    };
+
+    const handleAlerts = (type: string, data: any) => {
+        if (type === "Budget Summary") {
+            const overBudget = data.filter((report: any) =>
+                parseFloat(report.usagePercentage.replace('%', '')) > 90
+            ).map((report: any) => report.category);
+            if (overBudget.length > 0) {
+                alert(`The categories: ${overBudget.join(", ")} have exceeded 90% of the budget limit.`);
+            }
+        }
+
+        if (type === "Savings Progress") {
+            const highSavings = data.filter((report: any) =>
+                parseFloat(report.progressPercentage.replace('%', '')) > 90
+            ).map((report: any) => report.savingGoal);
+            if (highSavings.length > 0) {
+                alert(`Congratulations! The savings goals: ${highSavings.join(", ")} have exceeded 90%.`);
+            }
         }
     };
 
@@ -156,9 +141,8 @@ const Report = () => {
                             <div className="transactionsList">
                             {transactions && Array.isArray(transactions) ? (
                                     transactions.map((transaction: any) => (
-                                        <div key={transaction.id}>
-                                            {transactionItem(transaction)}
-                                        </div>
+                                        <div key={transaction.id} data-testid="transaction-item">
+                                             {transactionItem(transaction)}</div>
                                     ))
                                 ) : (
                                     <div>No transactions found for the selected date range.</div>
