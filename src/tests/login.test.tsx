@@ -20,10 +20,9 @@ describe("LoginPage Component", () => {
 
     beforeEach(() => {
         jest.resetAllMocks();
-        renderComponent();
     });
 
-    const renderComponent = () => {
+    const renderComponent = (userContextValue = {}) => {
         render(
             <UserContext.Provider
                 value={{
@@ -32,7 +31,8 @@ describe("LoginPage Component", () => {
                     transactions: [],
                     setTransactions: jest.fn(),
                     add: false,
-                    setAdd: jest.fn()
+                    setAdd: jest.fn(),
+                    ...userContextValue,
                 }}
             >
                 <MemoryRouter>
@@ -42,7 +42,18 @@ describe("LoginPage Component", () => {
         );
     };
 
+    test("renders 'Context not present' when UserContext is missing", () => {
+        render(
+            <MemoryRouter>
+                <LoginPage />
+            </MemoryRouter>
+        );
+
+        expect(screen.getByText("Context not present")).toBeInTheDocument();
+    });
+
     test("renders username and password inputs and submit button", () => {
+        renderComponent();
 
         expect(screen.getByText("Welcome to FinGrow")).toBeInTheDocument();
         expect(screen.getByText("Login")).toBeInTheDocument();
@@ -52,6 +63,8 @@ describe("LoginPage Component", () => {
     });
 
     test("updates username and password state on input change", () => {
+        renderComponent();
+
         fireEvent.change(screen.getByPlaceholderText(/Username/i), { target: { value: "Nikitha" } });
         fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: "1234" } });
 
@@ -64,6 +77,8 @@ describe("LoginPage Component", () => {
             ok: true,
             json: async () => ({ username: "Nikitha" }),
         });
+
+        renderComponent();
 
         fireEvent.change(screen.getByPlaceholderText(/Username/i), {
             target: { value: "Nikitha" },
@@ -81,7 +96,49 @@ describe("LoginPage Component", () => {
         })
     });
 
+    test("displays error alert on server error (500)", async () => {
+        (fetch as jest.Mock).mockResolvedValueOnce({
+            ok: false
+        });
+
+        renderComponent();
+
+        fireEvent.change(screen.getByPlaceholderText(/Username/i), {
+            target: { value: "Nikitha" },
+        });
+        fireEvent.change(screen.getByPlaceholderText(/Password/i), {
+            target: { value: "1234" },
+        });
+
+        fireEvent.click(screen.getByRole("button", { name: /submit/i }));
+
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith('Error occured while logging in');
+        });
+    });
+
+    test("shows alert on fetch/network error", async () => {
+        (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network Error"));
+
+        renderComponent();
+
+        fireEvent.change(screen.getByPlaceholderText(/Username/i), {
+            target: { value: "Nikitha" },
+        });
+        fireEvent.change(screen.getByPlaceholderText(/Password/i), {
+            target: { value: "1234" },
+        });
+
+        fireEvent.click(screen.getByRole("button", { name: /submit/i }));
+
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith("Error occured while fetching user details");
+        });
+    });
+
     test("navigates to the registration page when clicking Register", () => {
+        renderComponent();
+
         fireEvent.click(screen.getByText(/Register/i));
 
         expect(mockNavigate).toHaveBeenCalledWith("/register");
