@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Dashboard from '../Pages/dashboard';
+import Dashboard from '../pages/dashboard';
 import { UserContext } from '../context/context';
 import { MemoryRouter } from 'react-router-dom';
 

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import LoginPage from '../Pages/login';
+import LoginPage from '../pages/login';
 import { UserContext } from '../context/context';
 import { MemoryRouter, BrowserRouter as Router } from 'react-router-dom';
 

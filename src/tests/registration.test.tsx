@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import RegistrationPage from '../Pages/registration';
+import RegistrationPage from '../pages/registration';
 import { UserContext } from '../context/context';
 import { MemoryRouter } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
-import LoginPage from "./Pages/login";
-import RegistrationPage from "./Pages/registration";
-import Dashboard from "./Pages/dashboard";
+import LoginPage from "./pages/login";
+import RegistrationPage from "./pages/registration";
+import Dashboard from "./pages/dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./context/context";
 
