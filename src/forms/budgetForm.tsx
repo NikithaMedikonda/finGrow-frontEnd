@@ -48,7 +48,6 @@ const BudgetForm = ({ type }: { type: string }) => {
                 resetForm();
             }
             else {
-                const result = await response.json();
                 alert(`Error occured`)
             }
         } catch (e) {

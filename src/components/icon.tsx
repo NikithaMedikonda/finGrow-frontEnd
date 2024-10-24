@@ -8,7 +8,6 @@ import { TbReport } from "react-icons/tb";
 const Icon = ({ type }: { type: string }) => {
     let heading;
     let IconComponent;
-    let id;
     
     if (type === "addTransaction") {
         heading = "Add Transaction";

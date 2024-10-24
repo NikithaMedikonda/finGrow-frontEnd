@@ -45,7 +45,6 @@ const TransactionForm = () => {
                 setDate("");
                 setCategory("");
             } else {
-                const result = await response.json();
                 alert(`Something went wrong`);
             }
         } catch (e) {
