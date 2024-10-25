@@ -6,7 +6,7 @@ on:
       - finGrow/frontend-ci/cd
   pull_request:
     branches:
-      - finGrow/frontend-ci/cd
+      - main
 
 jobs:
   build:
