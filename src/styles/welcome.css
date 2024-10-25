@@ -1,0 +1,28 @@
+.welcomecontainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:8%;
+}
+
+.welcomespanContent{
+    color:blue
+}
+
+.welcomespanContent h3{
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+.welcomeimg{
+    height:250px;
+    width:300px;
+    border-radius: 50px;
+}
+
+.welcomeheader{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
