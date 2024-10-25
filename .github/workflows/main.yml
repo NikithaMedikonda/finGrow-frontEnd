@@ -3,7 +3,7 @@ name: Build and Test
 on:
   push:
     branches:
-      - finGrow/frontend-part1
+      - finGrow/frontend-ci/cd
 
 jobs:
   build:
