@@ -21,7 +21,7 @@ const Welcome = () => {
         <h3>Your One Stop <span className="welcomespanContent">Finance <br/> Management System</span></h3>
       </div>
       <div>
-        <img className="welcomeimg" alt="welcome banner" src='./assets/image.jpg'/>
+        <img className="welcomeimg" alt="welcome bannernpm" src='./assets/image.jpg'/>
       </div>
     </div>
   )
