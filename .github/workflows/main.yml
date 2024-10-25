@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - finGrow/frontend-ci/cd
+  pull_request:
+    branches:
+      - finGrow/frontend-ci/cd
 
 jobs:
   build:
