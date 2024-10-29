@@ -99,15 +99,14 @@ Configure the git repo by creating the new pipeline providing the necessary deta
 
 ### Images of Genkins and GitHub Integration, Email, adn Coverage Threshold Verification.
 #### Build Pass
-public/Build pass.png
+![Build Pass](public/Build-pass.png)
 #### Build Fail
-public/Build fail.png
-![Build Fail](public/Build fail.png)
+![Build Fail](public/Build-fail.png)
 #### Mail Sent for success.
-public/email for success.png
+![Mail success](public/email-for-success.png)
 #### Mail Sent for failure.
-public/email for failure.png
+![Mail failure](public/email-for-failure.png)
 #### Coverage for threshold met.
-public/coverage covered.png
+![coverage covered](public/coverage-covered.png)
 #### Coverage for threshold unmet.
-public/coverage not met.png
+![coverage not met](public/coverage-not-met.png)
