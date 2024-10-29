@@ -83,3 +83,31 @@ Run the tests using Jest:
 
     npm test
 
+## Integration Of Github in Jenkins.
+1. Install Jenkins : https://www.jenkins.io/doc/book/installing/
+
+### Jenkins Configuration
+1. Install Required Plugins
+2. Go to Manage Jenkins -> Manage Plugins -> Available.
+  * GitHub Integration Plugin
+  * Email Extension Plugin
+Configure the git repo by creating the new pipeline providing the necessary details.
+
+### Using Jenkins
+1. Write the pipeline script from configure section.
+2. Start building the project using `Build Now` option.
+
+### Images of Genkins and GitHub Integration, Email, adn Coverage Threshold Verification.
+#### Build Pass
+public/Build pass.png
+#### Build Fail
+public/Build fail.png
+![Build Fail](public/Build fail.png)
+#### Mail Sent for success.
+public/email for success.png
+#### Mail Sent for failure.
+public/email for failure.png
+#### Coverage for threshold met.
+public/coverage covered.png
+#### Coverage for threshold unmet.
+public/coverage not met.png
