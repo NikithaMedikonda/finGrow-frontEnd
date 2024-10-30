@@ -1,0 +1,31 @@
+.formscontainer{
+    margin-top:10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10%;
+    flex-wrap: wrap;
+    padding-left:30px;
+    padding-bottom: 30px;
+}
+.formsheader{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    padding-left:30px;
+}
+
+.budget-savings {
+    display: flex;
+    flex-direction: row;
+    gap:15%;
+    justify-content: flex-start;
+    padding-left: 30px;
+    padding-top: 30px;
+}
+
+.formtransactions{
+    display: flex;
+    flex-direction: row;
+    width:1000px;
+}

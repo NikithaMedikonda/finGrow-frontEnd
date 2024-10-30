@@ -1,0 +1,17 @@
+.dashboardheader{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-family: "Roboto";
+    padding-right: 50%;
+    padding-top: 0%;
+    font-size: 24px; 
+}
+
+.dashboardspanContent{
+    color:blue
+}
+
+.maincontainer {
+    background: linear-gradient(rgb(134, 134, 249),rgb(173, 173, 247) 0%,white 100%);
+}
